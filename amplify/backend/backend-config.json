@@ -1,0 +1,10 @@
+{
+	"auth": {
+		"bakeryapp8f076fd1": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
+	}
+}

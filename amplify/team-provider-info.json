@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-bakeryapp-dev-221210-authRole",
+            "UnauthRoleArn": "arn:aws:iam::860477642613:role/amplify-bakeryapp-dev-221210-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::860477642613:role/amplify-bakeryapp-dev-221210-authRole",
+            "Region": "eu-west-1",
+            "DeploymentBucketName": "amplify-bakeryapp-dev-221210-deployment",
+            "UnauthRoleName": "amplify-bakeryapp-dev-221210-unauthRole",
+            "StackName": "amplify-bakeryapp-dev-221210",
+            "StackId": "arn:aws:cloudformation:eu-west-1:860477642613:stack/amplify-bakeryapp-dev-221210/21928d40-a5ce-11ea-9fbc-0af8eed4b1ec",
+            "AmplifyAppId": "dkxw08kc75h3r"
+        },
+        "categories": {
+            "auth": {
+                "bakeryapp8f076fd1": {}
+            }
+        }
+    }
+}
