@@ -1,15 +1,15 @@
-import React, {FunctionComponent} from "react"
+import React, { FunctionComponent } from "react";
+import TabBar from "../components/TabBar";
+import { NavBar, Flex } from "antd-mobile";
+export interface HomeProps {}
 
-export interface HomeProps {
-  
-}
+const HomeView: FunctionComponent<{}> = () => {
+  return (
+    <Flex direction="column">
+      <NavBar mode="light">Bakery app</NavBar>
+      <TabBar />
+    </Flex>
+  );
+};
 
-const HomeView:FunctionComponent<{}> = () => {
-  return <div>
-    home screen
-
-  </div>
-}
-
-
-export default HomeView
+export default HomeView;
