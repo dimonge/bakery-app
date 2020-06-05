@@ -13,6 +13,7 @@
     "@types/react-dom": "^16.9.0",
     "antd-mobile": "^2.3.3",
     "aws-amplify": "^3.0.15",
+    "rc-form": "^2.4.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
