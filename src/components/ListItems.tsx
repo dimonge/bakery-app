@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 
-import { ListView, NavBar } from "antd-mobile";
+import { ListView } from "antd-mobile";
 import Statistics from "./Statistics";
 export interface HomeProps {}
 
@@ -142,13 +142,10 @@ const ListItems: FunctionComponent<{}> = () => {
       <ListView        
         dataSource={state.dataSource}
         renderHeader={() => <div>
-        <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
-          <NavBar mode="light">Bakery app</NavBar>
-        </div>
         <div style={{marginTop: 50}}>
         <Statistics />
-
         </div>
+      
       </div>}
         renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
           {state.isLoading ? 'Loading...' : 'Loaded'}

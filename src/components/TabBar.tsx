@@ -2,11 +2,12 @@ import React, { FunctionComponent, useState } from "react"
 import {TabBar as AntTabBar, Icon} from "antd-mobile"
 import ListItems from "./ListItems"
 import AddForm from "./AddForm"
+import Filters from "./Filters"
 
 const TabBar:FunctionComponent<{}> = () => {
   const [state, setState] = useState({selectedTab: "home", hidden: false})
 
-  const renderContent = () => <ListItems />
+  const renderContent = () => <Filters />
   const renderForm = () => <AddForm />
   
 
