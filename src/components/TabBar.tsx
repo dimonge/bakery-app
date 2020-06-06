@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from "react"
 import {TabBar as AntTabBar, Icon} from "antd-mobile"
-import ListItems from "./ListItems"
 import AddForm from "./AddForm"
 import Filters from "./Filters"
 
@@ -10,7 +9,11 @@ const TabBar:FunctionComponent<{}> = () => {
   const renderContent = () => <Filters />
   const renderForm = () => <AddForm />
   
-
+  const onPressTab = (tab: string) => {
+    if (state.selectedTab !== tab) {
+      setState({...state, selectedTab: tab})
+    }
+  }
 
   return <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
     <AntTabBar unselectedTintColor="#949494"
@@ -19,22 +22,21 @@ const TabBar:FunctionComponent<{}> = () => {
           hidden={state.hidden}>
       <AntTabBar.Item 
         title="Home" 
-        icon={
-          <Icon type="home" />}
-        selectedIcon={<Icon type="home" color="grey" />}
+        icon={<Icon type="menu" />}
+        selectedIcon={<Icon type="menu" color="grey" />}
         selected={state.selectedTab === "home"}
-        onPress={() => console.log("home")}
+        onPress={() => onPressTab("home")}
         data-seed="logId"
         >
         {renderContent()}
       </AntTabBar.Item>
 
       <AntTabBar.Item 
-        title="Add Item" 
-        icon={<Icon type="add" />}
-        selectedIcon={<Icon type="search" color="grey" />}
+        title="Add Products" 
+        icon={<Icon type="plus" color="grey" />}
+        selectedIcon={<Icon type="plus" color="grey" />}
         selected={state.selectedTab === "add"}
-        onPress={() => console.log("add")}
+        onPress={() => onPressTab("add")}
         data-seed="logId"
         >
         {renderForm()}

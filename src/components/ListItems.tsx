@@ -1,100 +1,39 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 
-import { ListView } from "antd-mobile";
+import { ListView, Flex, Icon } from "antd-mobile";
 import Statistics from "./Statistics";
+import {API} from "aws-amplify"
+
 export interface HomeProps {}
 
-const data = [
-  {
-    id: 1,
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    title: 'Meet hotel',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  {
-    id: 2,
-    img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-    title: 'McDonald\'s invites you',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  {
-    id: 3,
-    img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-    title: 'Eat the week',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  {
-    id: 4,
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    title: 'Meet hotel',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  {
-    id: 5,
-    img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-    title: 'McDonald\'s invites you',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  {
-    id: 6,
-    img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-    title: 'Eat the week',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-];
-
-const dataById = {
-  1: {
-    id: 1,
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    title: 'Meet hotel',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  2: {
-    id: 2,
-    img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-    title: 'McDonald\'s invites you',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  3: {
-    id: 3,
-    img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-    title: 'Eat the week',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  4: {
-    id: 4,
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    title: 'Meet hotel',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  5: {
-    id: 5,
-    img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-    title: 'McDonald\'s invites you',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-  6:{
-    id: 6,
-    img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-    title: 'Eat the week',
-    des: '不是所有的兼职汪都需要风吹日晒',
-  },
-}
 const ListItems: FunctionComponent<{}> = () => {  
   const dataSource = new ListView.DataSource({
     rowHasChanged: (row1: any, row2: any) => row1 !== row2
   })
 
   const [state, setState] = useState({
+    data: [],
     dataSource,
+    productsById: {},
+    totalEarnings: 0,
     isLoading: true,
     height: document.documentElement.clientHeight * 3 / 4
   })
 
   useEffect(() => {
-    setState({...state, dataSource: dataSource.cloneWithRows(dataById)})
+    async function getProducts() {
+      const response = await API.get("productsapi", "/products", {})
+      const data =  response.products
+      let totalEarnings = 0
+      const productsById = data.reduce((acc: any, product: any) => {
+        totalEarnings += product.earnings
+        return {...acc, [product.id]: product}
+      }, {})
+      setState({...state, data, dataSource: dataSource.cloneWithRows(productsById), totalEarnings})
+    }
+    getProducts()
   }, [])
+
 
 
 
@@ -110,30 +49,30 @@ const ListItems: FunctionComponent<{}> = () => {
     />
   );
 
-  let index = data.length - 1;
     const row = (rowData: any, sectionID: any, rowID: any) => {
-      if (index < 0) {
-        index = data.length - 1;
-      }
-      const obj = data[index--];
       return (
+        <Flex direction="row">
+        <Flex.Item style={{flex:"5"}}>
         <div key={rowID} style={{ padding: '0 15px' }}>
           <div
             style={{
               lineHeight: '50px',
               color: '#888',
               fontSize: 18,
-              borderBottom: '1px solid #F6F6F6',
             }}
-          >{obj.title}</div>
+          >{rowData.product_type}</div>
           <div style={{ display: 'flex', padding: '15px 0' }}>
-            <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
             <div style={{ lineHeight: 1 }}>
-              <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
-              <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowID}</span>¥</div>
+            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{rowData.date}</div>
+              <div style={{  fontSize: '30px', color: '#FF6E27', marginBottom: '8px', fontWeight: 'bold' }}>{`N ${rowData.earnings}`}</div>
             </div>
           </div>
         </div>
+        </Flex.Item>
+        <Flex.Item style={{flex:"1", justifyContent: "flex-end"}}>
+        <Icon type="right" size="lg" color='#888'/>
+        </Flex.Item>
+        </Flex>
       );
     };
   return (
@@ -142,14 +81,13 @@ const ListItems: FunctionComponent<{}> = () => {
       <ListView        
         dataSource={state.dataSource}
         renderHeader={() => <div>
-        <div style={{marginTop: 50}}>
-        <Statistics />
-        </div>
-      
+        <div style={{marginTop: 0}}>
+        <Statistics data={state.totalEarnings}/>
+        </div>      
       </div>}
-        renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+        /*renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
           {state.isLoading ? 'Loading...' : 'Loaded'}
-        </div>)}
+        </div>)}*/
         renderRow={row}
         renderSeparator={separator}
         className="am-list"

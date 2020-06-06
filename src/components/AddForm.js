@@ -1,10 +1,8 @@
-import React from "react";
-import { List, InputItem } from "antd-mobile";
+import React, { useState } from "react";
+import { List, InputItem, NavBar } from "antd-mobile";
 import { createForm } from "rc-form";
+import Button from "./Button";
 
-// 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
-// https://github.com/ant-design/ant-design-mobile/issues/307
-// https://github.com/ant-design/ant-design-mobile/issues/163
 const isIPhone = new RegExp("\\biPhone\\b|\\biPod\\b", "i").test(
   window.navigator.userAgent
 );
@@ -15,77 +13,75 @@ if (isIPhone) {
   };
 }
 
-class AddForm extends React.Component {
-  state = {
-    type: "money",
+function AddForm({ form: { getFieldProps } }) {
+  const [state, setState] = useState({ products: {} });
+
+  const onChange = (v) => {
+    setState({ ...state, v });
   };
-  render() {
-    const { getFieldProps } = this.props.form;
-    const { type } = this.state;
-    return (
-      <div>
-        <List>
-          <InputItem
-            {...getFieldProps("money3")}
-            type={type}
-            defaultValue={100}
-            placeholder="start from left"
-            clear
-            moneyKeyboardAlign="left"
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          >
-            光标在左
-          </InputItem>
-          <InputItem
-            type={type}
-            placeholder="start from right"
-            clear
-            onChange={(v) => {
-              console.log("onChange", v);
-            }}
-            onBlur={(v) => {
-              console.log("onBlur", v);
-            }}
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          >
-            光标在右
-          </InputItem>
-          <InputItem
-            {...getFieldProps("money2", {
-              normalize: (v, prev) => {
-                if (v && !/^(([1-9]\d*)|0)(\.\d{0,2}?)?$/.test(v)) {
-                  if (v === ".") {
-                    return "0.";
-                  }
-                  return prev;
-                }
-                return v;
-              },
-            })}
-            type={type}
-            placeholder="money format"
-            ref={(el) => (this.inputRef = el)}
-            onVirtualKeyboardConfirm={(v) =>
-              console.log("onVirtualKeyboardConfirm:", v)
-            }
-            clear
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            disabledKeys={[".", "0", "3"]}
-          >
-            数字键盘
-          </InputItem>
-          <List.Item>
-            <div
-              style={{ width: "100%", color: "#108ee9", textAlign: "center" }}
-              onClick={() => this.inputRef.focus()}
-            >
-              click to focus
-            </div>
-          </List.Item>
-        </List>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <NavBar>Add Products</NavBar>
+      <List>
+        <InputItem
+          {...getFieldProps("money3")}
+          type={"string"}
+          placeholder="Product type"
+          clear
+          onChange={(value) => onChange({ product_type: value })}
+        >
+          Product Type
+        </InputItem>
+        <InputItem
+          type={"number"}
+          placeholder="Quantity produced"
+          clear
+          onChange={(value) => onChange({ quantity_produced: value })}
+          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+        >
+          Quantity Produced
+        </InputItem>
+        <InputItem
+          type={"number"}
+          placeholder="Quantity sold"
+          clear
+          onChange={(value) => onChange({ quantity_sold: value })}
+          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+        >
+          Quantity Sold
+        </InputItem>
+        <InputItem
+          type={"money"}
+          placeholder="Unit price (in Naira)"
+          clear
+          onChange={(value) => onChange({ unit_price: value })}
+          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+        >
+          Unit price (in Naira)
+        </InputItem>
+      </List>
+      <InputItem
+        type={"date"}
+        placeholder="Date"
+        clear
+        onChange={(value) => onChange({ date: value })}
+        moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+      >
+        Date
+      </InputItem>
+      <InputItem
+        type={"money"}
+        placeholder="Earnings in Naira"
+        clear
+        onChange={(value) => onChange({ earnings: value })}
+        moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+      >
+        Earnings (in Naira)
+      </InputItem>
+      <Button>Cancel</Button>
+      <Button>Save</Button>
+    </div>
+  );
 }
 
 export default createForm()(AddForm);

@@ -1,6 +1,6 @@
 {
     "identityPoolName": "bakeryapp8f076fd1_identitypool_8f076fd1",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "bakery8f076fd1",
     "userPoolName": "bakeryapp8f076fd1_userpool_8f076fd1",
     "autoVerifiedAttributes": [

@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "auth": {
+            "bakeryapp8f076fd1": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

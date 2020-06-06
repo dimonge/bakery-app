@@ -1,46 +1,27 @@
 import React from "react";
 import { Tabs, WhiteSpace } from "antd-mobile";
 import ListItems from "./ListItems";
+import Statistics from "./Statistics";
+import NavBar from "./NavBar";
 
 class Filters extends React.Component {
   renderContent = (tab) => (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "150px",
-        backgroundColor: "#fff",
-      }}
-    >
-      <ListItems />
+    <div>
+      <NavBar />
+      <ListItems />;
     </div>
   );
 
   render() {
-    const tabs = [
-      { title: "1st Tab" },
-      { title: "2nd Tab" },
-      { title: "3rd Tab" },
-      { title: "4th Tab" },
-      { title: "5th Tab" },
-      { title: "6th Tab" },
-      { title: "7th Tab" },
-      { title: "8th Tab" },
-      { title: "9th Tab" },
-    ];
+    const tabs = [{ title: "All" }];
 
     return (
-      <div>
-        <WhiteSpace />
-        <Tabs
-          tabs={tabs}
-          renderTabBar={(props) => <Tabs.DefaultTabBar {...props} page={3} />}
-        >
-          {this.renderContent}
-        </Tabs>
-        <WhiteSpace />
-      </div>
+      <Tabs
+        tabs={tabs}
+        renderTabBar={(props) => <Tabs.DefaultTabBar {...props} page={3} />}
+      >
+        {this.renderContent}
+      </Tabs>
     );
   }
 }

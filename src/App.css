@@ -51,3 +51,8 @@
 #tab-bar .demo-preview-item .am-tab-bar {
   background-color: white;
 }
+
+
+.am-list-item .am-input-label.am-input-label-5 {
+  width: 43%;
+}
