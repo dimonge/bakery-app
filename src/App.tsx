@@ -1,17 +1,28 @@
 import React from "react";
 import "./App.css";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { NavBar } from "antd-mobile";
-
+import {Platform} from "react-native"
+import {Provider as PaperProvider, } from "react-native-paper"
 import HomeView from "./views/HomeView";
-import TabBar from "./components/TabBar";
 
 function App() {
   return (
-    <div style={{ flex: 1, flexDirection: "column" }}>
+    <PaperProvider>
+      <React.Fragment>
+        {Platform.OS === "web" ? (
+          <style type="text/css">
+            {`
+            @font-face {
+              font-family: 'MaterialCommunityIcons';
+              src: url(${require('react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf')}) format('truetype');
+            }
+          `}
+          </style>
+        ): null}
       <HomeView />
-    </div>
+      </React.Fragment>
+    </PaperProvider>
   );
 }
 
-export default withAuthenticator(App);
+export default App

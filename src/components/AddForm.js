@@ -1,87 +1,46 @@
 import React, { useState } from "react";
-import { List, InputItem, NavBar } from "antd-mobile";
-import { createForm } from "rc-form";
-import Button from "./Button";
 
-const isIPhone = new RegExp("\\biPhone\\b|\\biPod\\b", "i").test(
-  window.navigator.userAgent
-);
-let moneyKeyboardWrapProps;
-if (isIPhone) {
-  moneyKeyboardWrapProps = {
-    onTouchStart: (e) => e.preventDefault(),
-  };
-}
-
-function AddForm({ form: { getFieldProps } }) {
+import { FormControl } from "baseui/form-control";
+import { DatePicker } from "baseui/datepicker";
+import { Button } from "react-native-paper";
+import { Input } from "baseui/input";
+function AddForm({ id }) {
   const [state, setState] = useState({ products: {} });
-
-  const onChange = (v) => {
-    setState({ ...state, v });
-  };
   return (
-    <div>
-      <NavBar>Add Products</NavBar>
-      <List>
-        <InputItem
-          {...getFieldProps("money3")}
-          type={"string"}
-          placeholder="Product type"
-          clear
-          onChange={(value) => onChange({ product_type: value })}
-        >
-          Product Type
-        </InputItem>
-        <InputItem
-          type={"number"}
-          placeholder="Quantity produced"
-          clear
-          onChange={(value) => onChange({ quantity_produced: value })}
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-        >
-          Quantity Produced
-        </InputItem>
-        <InputItem
-          type={"number"}
-          placeholder="Quantity sold"
-          clear
-          onChange={(value) => onChange({ quantity_sold: value })}
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-        >
-          Quantity Sold
-        </InputItem>
-        <InputItem
-          type={"money"}
-          placeholder="Unit price (in Naira)"
-          clear
-          onChange={(value) => onChange({ unit_price: value })}
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-        >
-          Unit price (in Naira)
-        </InputItem>
-      </List>
-      <InputItem
-        type={"date"}
-        placeholder="Date"
-        clear
-        onChange={(value) => onChange({ date: value })}
-        moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-      >
-        Date
-      </InputItem>
-      <InputItem
-        type={"money"}
-        placeholder="Earnings in Naira"
-        clear
-        onChange={(value) => onChange({ earnings: value })}
-        moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-      >
-        Earnings (in Naira)
-      </InputItem>
-      <Button>Cancel</Button>
-      <Button>Save</Button>
+    <div style={{ marginLeft: 16, marginRight: 16 }}>
+      <FormControl label={() => "Quantity Produced"}>
+        <Input />
+      </FormControl>
+      <FormControl label={() => "Quantity Sold"}>
+        <Input />
+      </FormControl>
+      <FormControl label={() => "Unit price (Naira)"}>
+        <Input startEnhancer="N" />
+      </FormControl>
+      <FormControl label={() => "Date"}>
+        <DatePicker
+          value={state.date}
+          onChange={({ date }) =>
+            setState({ ...state, date: Array.isArray(date) ? date : [date] })
+          }
+        />
+      </FormControl>
+      <FormControl label={() => "Earnings (Naira)"}>
+        <Input startEnhancer="N" />
+      </FormControl>
+      <div>
+        <Button mode="text" onPress={() => (window.location.search = "")}>
+          Cancel
+        </Button>
+        <Button mode="contained" onPress={() => (window.location.search = "")}>
+          Save
+        </Button>
+      </div>
     </div>
   );
 }
 
-export default createForm()(AddForm);
+AddForm.defaultProps = {
+  id: null,
+};
+export default AddForm;

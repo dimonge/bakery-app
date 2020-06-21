@@ -1,0 +1,9 @@
+type Product @model {
+  id: ID!
+  type: String
+  quantityProduced: Int
+  quantitySold: Int
+  unitPrice: Int
+  date: String
+  earnings: Int
+}

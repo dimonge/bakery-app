@@ -9,7 +9,7 @@ import config from "./aws-exports";
 
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
-import { LightTheme, BaseProvider } from "baseui";
+import { BaseProvider } from "baseui";
 import { MyTheme } from "./Theme/index";
 const engine = new Styletron();
 Amplify.configure(config);
