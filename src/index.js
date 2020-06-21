@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import Amplify from "aws-amplify";
+import Amplify, { PubSub } from "aws-amplify";
 import config from "./aws-exports";
 
 import { Client as Styletron } from "styletron-engine-atomic";
@@ -13,6 +13,7 @@ import { BaseProvider } from "baseui";
 import { MyTheme } from "./Theme/index";
 const engine = new Styletron();
 Amplify.configure(config);
+PubSub.configure(config);
 
 ReactDOM.render(
   <React.StrictMode>

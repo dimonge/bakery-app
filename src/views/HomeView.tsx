@@ -23,7 +23,6 @@ const HomeView: FunctionComponent<{}> = () => {
     content = <React.Fragment>      
       <NavBar showAction={true}/>
       <List />
-      <AddButton />
     </React.Fragment>
   }
   return content

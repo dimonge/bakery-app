@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-
+import { createProduct } from "../graphql/mutations";
 import { FormControl } from "baseui/form-control";
 import { DatePicker } from "baseui/datepicker";
 import { Button } from "react-native-paper";
 import { Input } from "baseui/input";
+import { API, graphqlOperation } from "aws-amplify";
+
+async function createNewProduct(product) {
+  return await API.graphql(graphqlOperation(createProduct, { input: product }));
+}
+
 function AddForm({ id }) {
   const [state, setState] = useState({ products: {} });
+
+  const onSave = () => {
+    createNewProduct(state.products);
+    window.location.search = "";
+  };
   return (
     <div style={{ marginLeft: 16, marginRight: 16 }}>
       <FormControl label={() => "Quantity Produced"}>
@@ -32,7 +43,7 @@ function AddForm({ id }) {
         <Button mode="text" onPress={() => (window.location.search = "")}>
           Cancel
         </Button>
-        <Button mode="contained" onPress={() => (window.location.search = "")}>
+        <Button mode="contained" onPress={onSave}>
           Save
         </Button>
       </div>

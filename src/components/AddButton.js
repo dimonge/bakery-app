@@ -7,7 +7,7 @@ function AddButton() {
     <FAB
       style={styles.fab}
       icon="plus"
-      onPress={() => window.location.search("?new=true")}
+      onPress={() => (window.location.search = "?new=true")}
     />
   );
 }

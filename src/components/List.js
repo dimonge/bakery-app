@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList } from "react-native";
 import { List as RNPList, TouchableRipple } from "react-native-paper";
+import { listProducts } from "../graphql/queries";
+import { API, graphqlOperation } from "aws-amplify";
+import AddButton from "./AddButton";
 const rows = [
   {
     id: 0,
@@ -43,6 +46,17 @@ const rows = [
 function List() {
   const [selectedRow, setSelectedRow] = useState(null);
   const extractKey = ({ id }) => id;
+
+  async function getProducts() {
+    API.graphql(graphqlOperation(listProducts)).then((evnt) => {
+      setSelectedRow(evnt.data.listProducts.items);
+    });
+  }
+
+  useEffect(() => {
+    getProducts();
+  });
+
   const renderItem = ({ item }) => {
     return (
       <TouchableRipple
@@ -65,12 +79,15 @@ function List() {
   };
 
   return (
-    <FlatList
-      style={{ flex: 1 }}
-      data={rows}
-      renderItem={renderItem}
-      keyExtractor={extractKey}
-    />
+    <div style={{ position: "relative", height: "calc(100vh - 50px)" }}>
+      <FlatList
+        style={{ flex: 1 }}
+        data={selectedRow}
+        renderItem={renderItem}
+        keyExtractor={extractKey}
+      />
+      <AddButton />
+    </div>
   );
 }
 
