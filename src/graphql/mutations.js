@@ -14,8 +14,6 @@ export const createProduct = /* GraphQL */ `
       unitPrice
       date
       earnings
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -32,8 +30,6 @@ export const updateProduct = /* GraphQL */ `
       unitPrice
       date
       earnings
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -50,8 +46,6 @@ export const deleteProduct = /* GraphQL */ `
       unitPrice
       date
       earnings
-      createdAt
-      updatedAt
     }
   }
 `;

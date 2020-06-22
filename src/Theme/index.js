@@ -8,9 +8,7 @@ const breakpoints = {
 
 const ResponsiveTheme = Object.keys(breakpoints).reduce(
   (acc, key) => {
-    acc.mediaQuery[
-      key
-    ] = `@media screen and (min-width: ${breakpoints[key]}px)`;
+    acc.mediaQuery[key] = `@media screen and (min-width: ${breakpoints[key]}px)`;
     return acc;
   },
   {

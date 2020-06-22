@@ -3,13 +3,7 @@ import { FAB } from "react-native-paper";
 import { StyleSheet } from "react-native";
 
 function AddButton() {
-  return (
-    <FAB
-      style={styles.fab}
-      icon="plus"
-      onPress={() => (window.location.search = "?new=true")}
-    />
-  );
+  return <FAB style={styles.fab} icon="plus" onPress={() => (window.location.search = "?new=true")} />;
 }
 
 const styles = StyleSheet.create({

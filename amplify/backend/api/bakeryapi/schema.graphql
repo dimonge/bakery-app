@@ -3,7 +3,7 @@ type Product @model {
   type: String
   quantityProduced: Int
   quantitySold: Int
-  unitPrice: Int
+  unitPrice: Float
   date: String
-  earnings: Int
+  earnings: Float
 }

@@ -11,8 +11,6 @@ export const getProduct = /* GraphQL */ `
       unitPrice
       date
       earnings
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -31,8 +29,6 @@ export const listProducts = /* GraphQL */ `
         unitPrice
         date
         earnings
-        createdAt
-        updatedAt
       }
       nextToken
     }

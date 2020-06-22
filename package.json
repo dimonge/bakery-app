@@ -18,6 +18,7 @@
     "antd-mobile": "^2.3.3",
     "aws-amplify": "^3.0.15",
     "baseui": "^9.84.0",
+    "date-fns": "^2.14.0",
     "query-string": "^6.13.1",
     "rc-form": "^2.4.11",
     "react": "^16.13.1",
