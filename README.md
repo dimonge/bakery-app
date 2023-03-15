@@ -21,10 +21,3 @@ https://mobile.ant.design/components/tab-bar/#components-tab-bar-demo-basic
 
 AWS
 https://docs.amplify.aws/ui/auth/authenticator/q/framework/react#greetings
-
-
-Access to resource attribute
-
- AUTH_BAKERYAPP8F076FD1_USERPOOLID
-        ENV
-        REGION
